@@ -1,0 +1,145 @@
+--- Grupo: Los discipulos de Adrian y Pablo
+-- Integrantes: 
+-- Aguirre Kremer	Matias Leandro
+-- Alfonso Braian Yamil
+-- Campo Arnoldo Agustín
+-- Haedo Enzo Gabriel
+-- Perez Elías Leonel
+-- Perez Julián
+-- Ruido Pablo Gabriel
+-- Diaz Barraza	David Exequiel 
+-- Montiel	Gustavo
+
+
+CREATE DATABASE blog;
+
+USE  blog;
+
+CREATE TABLE usuario (
+    id INT NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR (50),
+    apellido VARCHAR (50),
+    telefono VARCHAR (50),
+    username VARCHAR (50),
+    email VARCHAR (50),
+    contraseña VARCHAR (50),
+    estado BOOLEAN,
+    fecha_creacion DATE,
+    avatar VARCHAR (255),
+    es_publico BOOLEAN,
+    es_colaborador BOOLEAN,
+    es_admin BOOLEAN,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE articulo (
+    id INT NOT NULL AUTO_INCREMENT,
+    id_usuario INT,
+    titulo VARCHAR (50),
+    resumen VARCHAR (255),
+    contenido TEXT,
+    fecha_publicacion DATE,
+    estado  BOOLEAN,
+    imagen VARCHAR (255),
+    PRIMARY KEY (id),
+    FOREIGN KEY (id_usuario) REFERENCES usuario (id)
+);
+
+CREATE TABLE comentario (
+    id INT NOT NULL AUTO_INCREMENT,
+    id_articulo INT NOT NULL,
+    id_usuario INT NOT NULL,
+    contenido TEXT,
+    fecha_hora DATETIME,
+    estado BOOLEAN,
+    PRIMARY KEY (id),
+    FOREIGN KEY (id_articulo) REFERENCES articulo (id),
+    FOREIGN KEY (id_usuario) REFERENCES usuario (id)
+);
+
+CREATE TABLE categoria (
+    id INT NOT NULL AUTO_INCREMENT,
+    id_categoria INT NOT NULL,
+    nombre VARCHAR (20),
+    descripcion TEXT,
+    imagen VARCHAR (255),
+    estado BOOLEAN,
+    PRIMARY KEY (id),
+    FOREIGN KEY (id_categoria) REFERENCES categoria (id)
+);
+
+CREATE TABLE categoria_articulo (
+    id_articulo INT NOT NULL,
+    id_categoria INT NOT NULL,
+    FOREIGN KEY (id_articulo) REFERENCES articulo (id),
+    FOREIGN KEY (id_categoria) REFERENCES categoria (id)
+);
+
+INSERT usuario (nombre,apellido,telefono,username,email,contraseña,estado,fecha_creacion,avatar,es_publico,es_colaborador,es_admin) 
+VALUES ("pablo","ruido","35824995", "pabloruido","pabloruido@hotmail.com","passpabloruido", 1,"2023-06-06","ajsfjasfjfsfasjsfj",0,0,1);
+
+INSERT usuario (nombre,apellido,telefono,username,email,contraseña, estado,fecha_creacion, avatar, es_publico, es_colaborador, es_admin) 
+VALUES ("estela","nuñez","3582885595", "estelanunez","estelanunez@hotmail.com","passestela", 1,"2023-08-08","ajsfjasfjfsfasjsfj",0,1,0);
+    
+INSERT usuario (nombre,apellido,telefono,username,email,contraseña, estado,fecha_creacion, avatar, es_publico, es_colaborador, es_admin)  
+VALUES ("matias", "kremer","13513513453", "matiaskremer", "matiaskremer@gmail.com", "passmatias",1,"2023-06-06","ajsfjasfjfsfasjsfj",0,1,0);
+
+INSERT usuario (nombre,apellido,telefono,username,email,contraseña, estado,fecha_creacion, avatar, es_publico, es_colaborador, es_admin)  
+VALUES ("yamil", "alfonso", "35824995", "alfonsoyamil","alfonsoyamil@hotmail.com","pasffaespfp",1,"2023-06-06","ajsfjasfjfsfasjsfj",0,1,0);
+
+INSERT usuario (nombre,apellido,telefono,username,email,contraseña, estado,fecha_creacion, avatar, es_publico, es_colaborador, es_admin) 
+VALUES ("Arnoldo","campo","35824995","arnoldocampo","arnoldocampo@hotmail.com","pasffaespfp",1,"2023-06-06","ajsfjasfjfsfasjsfj",0,1,0);
+
+INSERT usuario (nombre,apellido,telefono,username,email,contraseña, estado,fecha_creacion, avatar, es_publico, es_colaborador, es_admin) 
+VALUES ("Enzo","Haedo","35824995","Haedoenzo","HaedoEnzo@hotmail.com","pasffaespfp",1,"2023-06-06","ajsfjasfjfsfasjsfj",1,0,0);
+
+INSERT usuario (nombre,apellido,telefono,username,email,contraseña, estado,fecha_creacion, avatar, es_publico, es_colaborador, es_admin) 
+VALUES ("elías","Perez","35824995","Perezelías","Perezelías@hotmail.com","pasffaespfp",1,"2023-06-06","ajsfjasfjfsfasjsfj",1,0,0);
+
+INSERT usuario (nombre,apellido,telefono,username,email,contraseña, estado,fecha_creacion, avatar, es_publico, es_colaborador, es_admin) 
+VALUES ("julian", "Perez","35824995","Perezjulián","perezjulian@hotmail.com","pasffaespfp",1,"2023-06-06","ajsfjasfjfsfasjsfj",1,0,0);
+
+INSERT usuario (nombre,apellido,telefono,username,email,contraseña, estado,fecha_creacion, avatar, es_publico, es_colaborador, es_admin)
+VALUES ("David","Diaz Barraza","35824995","DiazDavid","diazdavid@hotmail.com","pasffaespfp",1,"2023-06-06","ajsfjasfjfsfasjsfj",1,0,0);
+
+INSERT usuario (nombre,apellido,telefono,username,email,contraseña, estado,fecha_creacion, avatar, es_publico, es_colaborador, es_admin)
+VALUES ("gustavo","montiel","35824995","montielgustavo16","montielgustavo@hotmail.com","pasffaespfp",1,"2023-06-06","ajsfjasfjfsfasjsfj",1,0,0);
+
+--- Agregar el comando necesario para actualizar el rol a admin de uno de los usuarios
+--agregado con rol de colaborador.
+
+UPDATE usuario SET es_admin = 1 where id = 2;
+
+--- Agregar el comando necesario que introduzca en la tabla articulo, 3 artículos con
+--estado TRUE y uno con estado FALSE. Donde el campo estado en todas las tablas es
+--Booleano.
+
+INSERT articulo (id_usuario, titulo, resumen, contenido, fecha_publicacion, estado,imagen) VALUES (1, "EL BOSQUE", "un asombroso relato", "habla del bosque", "2022-05-03", 1,"ww.w.w.imagen.com");
+
+INSERT articulo (id_usuario, titulo, resumen, contenido, fecha_publicacion, estado,imagen) VALUES (2, "la selva", "un asombroso relato", "habla de la selva", "2022-07-03", 1,"ww.w.w.imagen2.com");
+
+INSERT articulo (id_usuario, titulo, resumen, contenido, fecha_publicacion, estado,imagen) VALUES (3, "la mosca", "un insecto", "habla de la selva", "2022-01-03", 1,"ww.w.w.imagen23.com");
+
+INSERT articulo (id_usuario, titulo, resumen, contenido, fecha_publicacion, estado,imagen) VALUES (3, "racing", "relato de pasion", "el escudo", "2023-01-03", 0,"ww.w.w.imagen223.com");
+
+--- Agregar el comando necesario para eliminar el artículo que tenga estado FALSE.
+
+DELETE FROM articulo where estado = 0;
+
+-- Agregar el comando necesario que introduzca 3 comentarios al primer artículo
+--agregado y 2 comentarios al segundo artículo.
+
+INSERT comentario (id_articulo, id_usuario, contenido, fecha_hora, estado) VALUES (1, 5, "muy buen blog", "2023-06-06 14:00", 1);
+INSERT comentario (id_articulo, id_usuario, contenido, fecha_hora, estado) VALUES (1, 6, "horrible lo que escribis", "2023-06-06 17:00", 1);
+INSERT comentario (id_articulo, id_usuario, contenido, fecha_hora, estado) VALUES (1, 8, "viva yo!", "2023-07-06 08:15", 1);
+INSERT comentario (id_articulo, id_usuario, contenido, fecha_hora, estado) VALUES (2, 8, "viva yo de nuevo!", "2023-07-06 18:15", 1);
+INSERT comentario (id_articulo, id_usuario, contenido, fecha_hora, estado) VALUES (2, 4, "HOLA Soy nuevo en tu blog", "2023-05-06 18:15", 1);
+
+--- Agregar el comando necesario para listar todos los artículos que tengan
+--comentarios, mostrando el título del artículo, la fecha_publicacion del artículo, el
+--nombre del usuario que realizo el comentario y la fecha_hora que realizó dicho
+--comentario, agrupados por artículos.
+
+SELECT a.titulo, a.fecha_publicacion, u.username, c.contenido, c.fecha_hora FROM comentario as c
+inner join articulo as a on c.id_articulo = a.id
+inner join usuario as u on a.id_usuario = u.id;
